@@ -1,4 +1,4 @@
-# A simple server based om SocketServer
+# A simple server based on SocketServer
 
 from SocketServer import TCPServer, StreamRequestHandler
 
