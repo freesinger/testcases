@@ -17,6 +17,11 @@ Explanation: 342 + 465 = 807.
 class Solution(object):
     def addTwoNumbers(self, L1, L2):
         # 检查元素
+        """
+        :type L1: ListNode
+        :type L2: ListNode
+        :rtype: ListNode
+        """
         if not L1:
             return L2
         if not L2:
@@ -36,10 +41,29 @@ class Solution(object):
         # 倒序存储结果
         tmp = str(int(num1) + int(num2))[::-1]
         # res保存链表
-        res = LinkNode(int(tmp[0]))
+        res = ListNode(int(tmp[0]))
         # 保存运行结果
         run_res = res
         for i in range(1, len(tmp)):
             run_res.next = ListNode(int(tmp[i]))
             run_res = run_res.next
         return res
+
+class Solution(object):
+    def addTwoNumbers(self, L1, L2):
+        # check List
+        if not L1:
+            return L2
+        if not L2:
+            return L1
+        
+        if L1.val + L2.val < 10:
+            L3 = ListNode(L1.val + L2.val)
+            L3.next  = self.addTwoNumbers(L1.next, L2.next)
+        else:
+            L3 = ListNode(L1.val + L2.val - 10)
+            tmp = ListNode(1)
+            tmp.next = None
+            L3.next = self.addTwoNumbers(L1.next, self.addTwoNumbers(L2.next, tmp))
+
+        return L3
