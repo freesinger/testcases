@@ -1,2 +1,2 @@
 # PythonTestcases
-My python study notes.
+Some Python projects or algorithms.
