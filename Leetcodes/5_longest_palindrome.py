@@ -42,7 +42,7 @@ class Solution(object):
                     break
         else:
             for i in range(length // 2):
-                if temp[i] == temp[length - 1 - 1]:
+                if temp[i] == temp[length - 1 - i]:
                     continue
                 else:
                     temp = "There's no palindrome in this sentence."
