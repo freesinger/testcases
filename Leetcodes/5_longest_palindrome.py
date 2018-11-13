@@ -31,6 +31,7 @@ class Solution(object):
 
         # 逆序sentence求最长公共序列，再判断是否存在回文
         temp = longest_Common_String(sentence, sentence[::-1])
+        # print(temp)
         length = len(temp)
         if length % 2 == 1:
             for i in range((length) - 1 // 2):
@@ -48,7 +49,10 @@ class Solution(object):
                     break
         print(temp)
 
-if __name__ == '__main__':
+def main():
     string = input("Input: ")
     lpd = Solution()
     lpd.longest_Palindrome(string)
+
+if __name__ == '__main__':
+    main()
