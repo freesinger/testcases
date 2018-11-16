@@ -33,7 +33,7 @@ class Solution(object):
         result = [''] * numRow
 
         currentRow = 0
-        # direction: ↑ True ↓ False
+        # direction:  ↓: True  ↑: False
         for char in original_string:
             result[currentRow] += char
             if currentRow == 0:
