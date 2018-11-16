@@ -69,7 +69,7 @@ class Solution(object):
         return ''.join(result)
 
 def main():
-    string = input("Input: ")
+    string = input("Input String: ")
     numRow = int(input("Row: "))
     strConvert = Solution()
     print(strConvert.string_Convert_A(string, numRow))
