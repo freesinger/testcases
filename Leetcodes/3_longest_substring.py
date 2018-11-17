@@ -31,7 +31,7 @@ class SolutionA(object):
         length, start, n = 0, 0, len(s)
         maps = {}
         for i in range(n):
-            # 类似”slip window“
+            # 类似”slide window“
             start = max(start, maps.get(s[i], -1) + 1)
             length = max(length, i - start + 1)
             maps[s[i]] = i
