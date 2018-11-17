@@ -23,9 +23,9 @@ class Solution(object):
     # Mathematic Solution
     def reverse_integer_A(self, source_int):
         if source_int < 0:
-            return -self.reverse_integer(-source_int)
+            return -self.reverse_integer_A(-source_int)
         res = 0
-        while source_int:
+        while source_int: 
             res = res * 10 + source_int % 10
             source_int //= 10
         return res if res <= 0x7fffffff else 0
