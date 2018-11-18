@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 with open('/Users/shanewang/Desktop/train/01010204.txt', 'r', encoding='gbk') as f:
@@ -25,4 +26,3 @@ with open('/Users/shanewang/Desktop/train/01010204.txt', 'r', encoding='gbk') as
             result.append(pair + (cnt,))
 
         print(list(set(result)))
-        

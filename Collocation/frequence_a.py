@@ -29,7 +29,7 @@ def fre_analysis(temptext, res):
                     if pair == cmp_pair:
                         cnt += 1
                 # str convert to tuple
-                result.append((pair) + (cnt,))
+                result.append(pair + ' ' + str(cnt))
 
             result = list(set(result))
             for i in result:
@@ -40,7 +40,7 @@ def main():
         doc = list(os.listdir(rootdir))
         for i in doc:
             text_process(rootdir + i, tmp)
-        fre_analysis(resdir + 'temp.txt', res)
+        # fre_analysis(resdir + 'temp.txt', res)
         
 
 if __name__ == '__main__':
