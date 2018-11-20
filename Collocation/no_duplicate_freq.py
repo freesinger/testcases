@@ -1,8 +1,9 @@
 with open('/Users/shanewang/Desktop/temp_fb.txt', 'r', encoding='gbk') as f:
     neib_pair = []
     for sentence in f:
+        # print(sentence)
         neib_pair.extend([sentence.split()])
-
+    # print(len(neib_pair))  
     result = []
     nodup_res = []
     for pair in neib_pair:
@@ -20,5 +21,5 @@ with open('/Users/shanewang/Desktop/temp_fb.txt', 'r', encoding='gbk') as f:
     
     nodup_res.sort()
     for i in nodup_res:
-        if i[-1] > 3:
+        if i[-1] > 1:
             print(i)

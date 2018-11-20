@@ -16,7 +16,7 @@ def text_process(text, tempresult):
 
             nebor_pair = []
             for pos in range(len(proc_sentence) - 1):
-                nebor_pair.append((proc_sentence[pos], proc_sentence[pos + 1]))
+                nebor_pair.append([proc_sentence[pos], proc_sentence[pos + 1]])
             for elem in nebor_pair:
                 tempresult.write(' '.join(str(w) for w in elem) + '\n')
 
@@ -25,6 +25,8 @@ def fre_analysis(temptext, result):
     with open(temptext, 'r', encoding='gbk') as np:
         for sentence in np:
             neb_pair.extend([sentence.split()])
+        # print(len(neb_pair))
+        # :751071
 
     res = []
     nodup_res =[]
@@ -36,22 +38,24 @@ def fre_analysis(temptext, result):
         pair.append(cnt)
         res.append(pair)
 
-    res.sort()
+    # res.sort()
     for i in res:
-        if i not in nodup_res and i[-1] > 5:
+        if i not in nodup_res:
             nodup_res.append(i)
 
-    nodup_res.sort()
-    #with open(result, 'w', encoding='gbk') as r:
+    # nodup_res.sort()
+    # with open(result, 'w', encoding='gbk') as r:
     for i in nodup_res:
-        result.write('(' + ' '.join(str(t) for t in i) + ')\n')
+        if i[-1] > 5:
+            result.write('(' + ' '.join(str(t) for t in i) + ')\n')
 
 def main():
     with open(resdir + 'temp.txt', 'w', encoding='gbk') as tmp, open(resdir + 'result.txt', 'w', encoding='gbk') as res:
+        # process once
         doc = list(os.listdir(rootdir))
         for filename in doc:
             text_process(rootdir + filename, tmp)
-        fre_analysis(resdir + 'temp.txt', res)
+        fre_analysis(resdir + 'temp_fb.txt', res)
         
 
 if __name__ == '__main__':

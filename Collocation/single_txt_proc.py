@@ -1,7 +1,4 @@
-
-# -*- coding: utf-8 -*-
-
-with open('/Users/shanewang/Desktop/train/01010204.txt', 'r', encoding='gbk') as f:
+with open('/Users/shanewang/Desktop/train/01240704.txt', 'r', encoding='gbk') as f:
     for sentence in f:
         # sentence.rstrip('\n')
         sentence = sentence.split()
@@ -15,15 +12,22 @@ with open('/Users/shanewang/Desktop/train/01010204.txt', 'r', encoding='gbk') as
         for pos in range(len(proc_sentence) - 1):
             #if proc_sentence[pos + 1] != '\n':
                 #print([proc_sentence[pos], proc_sentence[pos + 1]])
-            neib_pair.append((proc_sentence[pos], proc_sentence[pos + 1]))
-
-        result = []
-        # print(neib_pair)
+            neib_pair.append([proc_sentence[pos], proc_sentence[pos + 1]])
+    
+        res = []
+        nodup_res =[]
         for pair in neib_pair:
-            cnt = 0          
-            for cmp_pair in neib_pair:
-                if pair == cmp_pair:
+            cnt = 0
+            for i in range(len(neib_pair)):
+                if pair == neib_pair[i][0:2]:
                     cnt += 1
-            result.append(pair + (cnt,))
+            pair.append(cnt)
+            res.append(pair)
+        
+        for i in res:
+            if i not in nodup_res:
+                nodup_res.append(i)
 
-        print(list(set(result)))
+        for i in nodup_res:
+            if i[-1] > 1:
+                print(i)
