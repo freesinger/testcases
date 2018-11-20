@@ -10,8 +10,9 @@ def text_process(text, tempresult):
             proc_sentence = []
             for word in sentence:
                 temp = word.split('/')
-                word = temp[0]
-                proc_sentence.append(word)
+                if temp[1] != 'w':
+                    word = temp[0]
+                    proc_sentence.append(word)
 
             nebor_pair = []
             for pos in range(len(proc_sentence) - 1):
@@ -20,27 +21,37 @@ def text_process(text, tempresult):
                 tempresult.write(' '.join(str(w) for w in elem) + '\n')
 
 def fre_analysis(temptext, res):
-            result = []
-            with open(temptext, 'r', encoding='gbk') as np:
-                nebor_pair = np.readlines()
-            for pair in nebor_pair:
-                cnt = 0
-                for cmp_pair in nebor_pair:
-                    if pair == cmp_pair:
-                        cnt += 1
-                # str convert to tuple
-                result.append(pair + ' ' + str(cnt))
+    neb_pair = []
+    with open(temptext, 'r', encoding='gbk') as np:
+        for sentence in np:
+            neb_pair.extend([sentence.split()])
 
-            result = list(set(result))
-            for i in result:
-                res.write('(' + ', '.join(str(c) for c in i) + ') ' + '\n')
+    res = []
+    nodup_res =[]
+    for pair in neb_pair:
+        cnt = 0
+        for i in range(len(neb_pair)):
+            if pair == neb_pair[i][0:2]:
+                cnt += 1
+        pair.append(cnt)
+        res.append(pair)
+
+    res.sort()
+    for i in res:
+        if i not in nodup_res:
+            nodup_res.append(i)
+
+    nodup_res.sort()
+    for i in nodup_res:
+        if i[-1] > 5:
+            print(i)
 
 def main():
     with open(resdir + 'temp.txt', 'w', encoding='gbk') as tmp, open(resdir + 'result.txt', 'w', encoding='gbk') as res:
         doc = list(os.listdir(rootdir))
         for i in doc:
             text_process(rootdir + i, tmp)
-        # fre_analysis(resdir + 'temp.txt', res)
+        fre_analysis(resdir + 'temp_fb.txt', res)
         
 
 if __name__ == '__main__':

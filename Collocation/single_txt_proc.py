@@ -8,8 +8,9 @@ with open('/Users/shanewang/Desktop/train/01010204.txt', 'r', encoding='gbk') as
         proc_sentence = []
         for word in sentence:
             temp = word.split('/')
-            word = temp[0]
-            proc_sentence.append(word)
+            if temp[1] != 'w':
+                word = temp[0]
+                proc_sentence.append(word)
         neib_pair = []
         for pos in range(len(proc_sentence) - 1):
             #if proc_sentence[pos + 1] != '\n':
