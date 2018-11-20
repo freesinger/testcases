@@ -20,7 +20,7 @@ def text_process(text, tempresult):
             for elem in nebor_pair:
                 tempresult.write(' '.join(str(w) for w in elem) + '\n')
 
-def fre_analysis(temptext, res):
+def fre_analysis(temptext, result):
     neb_pair = []
     with open(temptext, 'r', encoding='gbk') as np:
         for sentence in np:
@@ -38,20 +38,20 @@ def fre_analysis(temptext, res):
 
     res.sort()
     for i in res:
-        if i not in nodup_res:
+        if i not in nodup_res and i[-1] > 5:
             nodup_res.append(i)
 
     nodup_res.sort()
+    #with open(result, 'w', encoding='gbk') as r:
     for i in nodup_res:
-        if i[-1] > 5:
-            print(i)
+        result.write('(' + ' '.join(str(t) for t in i) + ')\n')
 
 def main():
     with open(resdir + 'temp.txt', 'w', encoding='gbk') as tmp, open(resdir + 'result.txt', 'w', encoding='gbk') as res:
         doc = list(os.listdir(rootdir))
-        for i in doc:
-            text_process(rootdir + i, tmp)
-        fre_analysis(resdir + 'temp_fb.txt', res)
+        for filename in doc:
+            text_process(rootdir + filename, tmp)
+        fre_analysis(resdir + 'temp.txt', res)
         
 
 if __name__ == '__main__':
