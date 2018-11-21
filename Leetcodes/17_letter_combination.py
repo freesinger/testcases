@@ -33,11 +33,15 @@ class Solution(object):
                 res.append(string)
             else:
                 cur_digit = digits[0]
+                """
                 if cur_digit not in lookup:
                     return res
+                """
                 for elem in lookup[cur_digit]:
                     recurseFind(string + elem, digits[1:])
 
+        if not digits or len(digits) == 0:
+            return res
         recurseFind('', digits)
         return res
         
