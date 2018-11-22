@@ -38,7 +38,6 @@ def fre_analysis( result):
 
 def main():
     with open(resdir + 'result.txt', 'w', encoding='gbk') as res:
-        # process once
         doc = list(os.listdir(rootdir))
         for i in doc:
             if i == '.DS_Store':

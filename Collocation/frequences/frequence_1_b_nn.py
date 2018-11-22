@@ -35,7 +35,6 @@ def sort_result(result):
 
 def main():
     with open(resdir + '1_b_nn.txt', 'w', encoding='gbk') as res:
-        # process once
         doc = list(os.listdir(rootdir))       
         for i in doc:
             if i == '.DS_Store':
