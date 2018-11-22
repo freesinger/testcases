@@ -37,7 +37,6 @@ def main():
     if not os.path.exists(resdir):
         os.mkdir(resdir)
     with open(resdir + '1_b_an.txt', 'w', encoding='gbk') as res:
-        # process once
         doc = list(os.listdir(rootdir))       
         for i in doc:
             if i == '.DS_Store':
