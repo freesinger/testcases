@@ -5,6 +5,7 @@ resdir = '/Users/shanewang/Desktop/results/'
 # store result of frequences
 dict_res = {}
 
+# 改革/v  开放/v 
 # 改革/vn 开放/vn
 def text_process(text, dist):
     single_npair = []
@@ -14,14 +15,14 @@ def text_process(text, dist):
             # print(sentence[0][-1])
             if dist >= 0:           
                 for pos in range(len(sentence) - 1):
-                    if pos + dist < len(sentence) and sentence[pos] == '改革/vn' \
-                        and sentence[pos + dist] == '开放/vn':
-                        single_npair.append((sentence[pos][:-3], sentence[pos + dist][:-3], dist))
+                    if pos + dist < len(sentence) and sentence[pos][0:2] == '改革' \
+                        and sentence[pos + dist][0:2] == '开放':
+                        single_npair.append((sentence[pos][0:2], sentence[pos + dist][0:2], dist))
             else:
                 for pos in range(len(sentence) - 1)[::-1]:
-                    if pos + dist >= 0 and sentence[pos] == '改革/vn' \
-                        and sentence[pos + dist] == '开放/vn':
-                        single_npair.append((sentence[pos][:-3], sentence[pos + dist][:-3], dist))
+                    if pos + dist >= 0 and sentence[pos][0:2] == '改革' \
+                        and sentence[pos + dist][0:2] == '开放':
+                        single_npair.append((sentence[pos][0:2], sentence[pos + dist][0:2], dist))
             """
             for pos in range(len(sentence) - 1):
                 if sentence[pos][-5:-3] == '改革' and sentence[pos + dist][-5:-3] == '开放':
@@ -55,7 +56,7 @@ def main():
             if i == '.DS_Store':
                 doc.remove(i)
         print(len(doc))
-        for step in range(-10, 11):
+        for step in range(-5, 6):
             for i in range(len(doc)):
                 cur_pair = text_process(rootdir + doc[i], step)
                 fre_analysis(cur_pair)

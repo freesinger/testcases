@@ -104,7 +104,7 @@ def dist_proc(distance, frefilter):
     return dist_res
 
 def main():
-    with open(resdir + '2_a.txt', 'w', encoding='gbk') as res:
+    with open(resdir + '2_a_100.txt', 'w', encoding='gbk') as res:
         # dict_pair = {}
         for i in doc:
             if i == '.DS_Store':
