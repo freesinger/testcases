@@ -1,9 +1,8 @@
 import os
+import json
 
 rootdir = '/Users/shanewang/Desktop/train/'
 resdir = '/Users/shanewang/Desktop/results/'
-# store result of frequences of nebor pairs
-dict_pair = {}
 # store results
 dict_res = {}
 doc = list(os.listdir(rootdir))
@@ -47,6 +46,31 @@ def filter_result(dict, judge):
             filtresult.append(i)
     return filtresult
 
+def filter_result_list(dict, judge):
+    filtresult = []
+    sorted_res = sorted(dict.items(), key = lambda k: sum(k[1]))
+    for i in reversed(sorted_res):
+        # print(i[1], type(i[1]))
+        if sum(i[1]) > judge:
+            filtresult.append(i)
+    return filtresult
+
+def tuple_toDic(curfretext):
+    temp_lookup = {}
+    for curpair in curfretext:
+        pair = curpair[0]
+        value = curpair[1]
+        if not temp_lookup.__contains__(pair):
+            temp_lookup[pair] = value
+    return temp_lookup
+
+def freq_analysis(pairdict, dist):
+    for pair in dict_res:
+        if pairdict.__contains__(pair[0]):
+            dict_res[pair].insert(dist, pairdict[pair[0]])
+        else:
+            dict_res[pair].insert(dist, 0)
+
 """
 def distance_frequence(curpair, step):
     '''
@@ -71,25 +95,63 @@ def distance_frequence(curpair, step):
                 dict_res[pair].append(0)
 """
 
-def main():
-    # with open(resdir + '1_a.txt', 'w', encoding='gbk') as res:
-    for i in doc:
-        if i == '.DS_Store':
-            doc.remove(i)
-    for step in range(-5, 6, 1):
-        for i in range(len(doc)):
-            fre_calculate(text_process(rootdir + doc[i], step), dict_pair)
-        one_res = filter_result(dict_pair, 100)
-        print(one_res)
+def dist_proc(distance, frefilter):
+    # store result of frequences of nebor pairs
+    dict_pair = {}
+    for i in range(len(doc)):
+        fre_calculate(text_process(rootdir + doc[i], distance), dict_pair)
+    dist_res = filter_result(dict_pair, frefilter)
+    return dist_res
 
-    """   
-    for i in dict_pair:
-        distance_frequence(i, 1)
-    """
+def main():
+    with open(resdir + '2_a.txt', 'w', encoding='gbk') as res:
+        # dict_pair = {}
+        for i in doc:
+            if i == '.DS_Store':
+                doc.remove(i)
+        """
+        for i in range(len(doc)):
+            fre_calculate(text_process(rootdir + doc[i], 1), dict_pair)
+        one_res = filter_result(dict_pair, 100)
+        """
+        one_res = dist_proc(1, 100)
+        original = tuple_toDic(one_res)
+        for pair in original:
+            if not dict_res.__contains__(pair):
+                dict_res.update({pair: [original[pair]]})
+
+        for step in range(-5, 0):
+            cur_res = tuple_toDic(dist_proc(step, 0))
+            freq_analysis(cur_res, step)
+        for step in range(5, 10):
+            cur_res = tuple_toDic(dist_proc(step, 0))
+            freq_analysis(cur_res, step)
+        filter_result_list(dict_res, 100)
+
+        # print(sorted(dict_res))
+        # print(dict_res)
+        """
+        sorted_dres = sorted(dict_res, key = lambda k: k[1][-1])
+        for i in sorted_dres:
+            res.write(' '.join(str(t) for t in i) + '\n')
+        """
         
-    # print(dict_res)
-    
+        for k, v in dict_res.items():
+            res.write(str(k) + ', ' + str(v) + '\n')
+        
+        """  
+        for pair in dict_res:
+            if original.__contains__(pair[0]):
+                dict_res[pair].insert(1, original[pair[0]])
+            else:
+                dict_res[pair].insert(1, 0)
+        """
+        # print(dict_res)
+
+        """   
+        for i in dict_pair:
+            distance_frequence(i, 1)
+        """
 
 if __name__ == '__main__':
     main()
-        
