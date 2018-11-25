@@ -1,4 +1,5 @@
 import os
+import math
 
 rootdir = '/Users/shanewang/Desktop/train/'
 resdir = '/Users/shanewang/Desktop/results/'
@@ -39,24 +40,18 @@ def word_fre_analysis(curword):
     else:
         word_cnt[curword] += 1
         
-def word_fre_compute(curword, totalbigram):
-    return word_cnt[curword] / totalbigram
+def word_fre_compute(curword, totalwords):
+    return word_cnt[curword] / totalwords
 
-def t_Test(curpair, t):
-    # print(type(curpair))
-    # cur = ' '.join(str(i) for i in curpair)
-    # words = cur.split()
-    """
-    print(pow(dict_res[curpair] / pow(t, 2), 1/2))
-    print(curpair,dict_res[curpair],words[0], word_cnt[words[0]],words[1], word_cnt[words[1]])
-    print((dict_res[curpair] / t), word_fre_compute(words[0], t), word_fre_compute(words[1], t))
-    print(pow(dict_res[curpair] / pow(t, 2), 1/2))
-    print((dict_res[curpair] / t) - word_fre_compute(words[0], t) * word_fre_compute(words[1], t))
-    """
-    t_result = ((dict_res[curpair] / t) - word_fre_compute(curpair[0], t) * word_fre_compute(curpair[1], t)) \
-        / pow(dict_res[curpair] / pow(t, 2), 1/2)
-    # print(t_result)
-    return t_result
+def pair_fre_compute(curpair, totalwords):
+    return dict_res[curpair] / totalwords
+
+def PMI(curpair, t):
+    x = word_fre_compute(curpair[0], t)
+    y = word_fre_compute(curpair[1], t)
+    p = pair_fre_compute(curpair, t)
+    pmi = math.log(p / (x * y), 2)
+    return pmi
 
 def sort_result(result):
     sorted_res = sorted(dict_res.items(), key = lambda k: k[1])
@@ -66,7 +61,7 @@ def sort_result(result):
             result.write(' '.join(str(s) for s in i) + '\n')
 
 def main():
-    with open(resdir + '3_a.txt', 'w', encoding='gbk') as res:
+    with open(resdir + '4_a.txt', 'w', encoding='gbk') as res:
         testres = []
         for i in doc:
             if i == '.DS_Store':
@@ -76,7 +71,7 @@ def main():
             cur_pair = text_process(rootdir + doc[i])
             pair_fre_analysis(cur_pair)
         print("Preprocess done!")
-        total_bigram = sum(dict_res.values())
+        total_words = sum(word_cnt.values())
 
         sort_res = []
         tmp_res = reversed(sorted(dict_res.items(), key = lambda k : k[1]))
@@ -85,7 +80,7 @@ def main():
                 sort_res.append(i)
         for i in sort_res:
             # print(i, i[0])
-            t_res = t_Test(i[0], total_bigram)
+            t_res = PMI(i[0], total_words)
             # print(t_res)
             testres.append((i, t_res))
         for i in testres:
