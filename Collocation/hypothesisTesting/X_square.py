@@ -4,7 +4,8 @@ rootdir = '/Users/shanewang/Desktop/train/'
 resdir = '/Users/shanewang/Desktop/results/'
 # store result of frequences
 dict_res = {}
-word_cnt = {}
+pre_res = {}
+aft_res = {}
 doc = list(os.listdir(rootdir))  
 
 def text_process(text):
@@ -17,7 +18,7 @@ def text_process(text):
                 temp = word.split('/')
                 if temp[1] != 'w':
                     word = temp[0]
-                    word_fre_analysis(word)
+                    # word_fre_analysis(word)
                     proc_sentence.append(word)          
             for pos in range(len(proc_sentence) - 1):
                 single_npair.append((proc_sentence[pos], proc_sentence[pos + 1]))
@@ -32,41 +33,40 @@ def pair_fre_analysis(textpair):
         else:
             dict_res[pair] += 1
 
-def word_fre_analysis(curword):
-    # global word_cnt
-    if not word_cnt.__contains__(curword):
-        word_cnt[curword] = 1
-    else:
-        word_cnt[curword] += 1
-        
-def word_fre_compute(curword, tbigram):
-    return word_cnt[curword] / tbigram
+def pre_fre_analysis(textpair):
+    for pair in textpair:
+        if not pre_res.__contains__(pair[0]):
+            pre_res[pair[0]] = 1
+        else:
+            pre_res[pair[0]] += 1
 
-def t_Test(curpair, t):
-    # print(type(curpair))
-    cur = ' '.join(str(i) for i in curpair)
-    words = cur.split()
-    """
-    print(pow(dict_res[curpair] / pow(t, 2), 1/2))
-    print(curpair,dict_res[curpair],words[0], word_cnt[words[0]],words[1], word_cnt[words[1]])
-    print((dict_res[curpair] / t), word_fre_compute(words[0], t), word_fre_compute(words[1], t))
-    print(pow(dict_res[curpair] / pow(t, 2), 1/2))
-    print((dict_res[curpair] / t) - word_fre_compute(words[0], t) * word_fre_compute(words[1], t))
-    """
-    t_result = ((dict_res[curpair] / t) - word_fre_compute(words[0], t) * word_fre_compute(words[1], t)) \
-        / pow(dict_res[curpair] / pow(t, 2), 1/2)
-    # print(t_result)
-    return t_result
+def aft_fre_analysis(textpair):
+    for pair in textpair:
+        if not aft_res.__contains__(pair[1]):
+            aft_res[pair[1]] = 1
+        else:
+            aft_res[pair[1]] += 1
 
-def sort_result(result):
-    sorted_res = sorted(dict_res.items(), key = lambda k: k[1])
-    # res.append([pair, num] for pair, num in dict_res())
-    for i in reversed(sorted_res):
-        if i[1] > 5:
-            result.write(' '.join(str(s) for s in i) + '\n')
+def find_O1O2(curtext):
+    O1 = curtext[0]
+    O2 = curtext[1]
+    return aft_res[O2] - dict_res[curtext]
+
+def find_O2O1(curtext):
+    O1 = curtext[0]
+    O2 = curtext[1]
+    return pre_res[O1] - dict_res[curtext]
+
+def X_square(curtext, t):
+    w1w1 = dict_res[curtext]
+    w1w2 = find_O1O2(curtext)
+    w2w1 = find_O2O1(curtext)
+    w2w2 = t - w1w1 - w1w2 - w2w1
+    x_res = t * pow(w1w1 * w2w2 - w1w2 * w2w1, 2) / ((w1w1 + w1w2) * (w1w1 + w2w1) * (w1w2 + w2w2) * (w2w1 + w2w2))
+    return x_res
 
 def main():
-    with open(resdir + '3_a.txt', 'w', encoding='gbk') as res:
+    with open(resdir + '3_b.txt', 'w', encoding='gbk') as res:
         testres = []
         for i in doc:
             if i == '.DS_Store':
@@ -75,6 +75,8 @@ def main():
         for i in range(len(doc)):
             cur_pair = text_process(rootdir + doc[i])
             pair_fre_analysis(cur_pair)
+            pre_fre_analysis(cur_pair)
+            aft_fre_analysis(cur_pair)
         print("Preprocess done!")
         total_bigram = sum(dict_res.values())
 
@@ -85,9 +87,9 @@ def main():
                 sort_res.append(i)
         for i in sort_res:
             # print(i, i[0])
-            t_res = t_Test(i[0], total_bigram)
-            # print(t_res)
-            testres.append((i, t_res))
+            X_res = X_square(i[0], total_bigram)
+            # print(X_res)
+            testres.append((i, X_res))
         for i in testres:
             res.write(' '.join(str(t) for t in i) + '\n')
             
