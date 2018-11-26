@@ -80,9 +80,9 @@ def main():
                 sort_res.append(i)
         for i in sort_res:
             # print(i, i[0])
-            t_res = PMI(i[0], total_words)
+            pmi = PMI(i[0], total_words)
             # print(t_res)
-            testres.append((i, t_res))
+            testres.append((i, pmi))
         for i in testres:
             res.write(' '.join(str(t) for t in i) + '\n')
             

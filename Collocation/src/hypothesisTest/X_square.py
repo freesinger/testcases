@@ -48,13 +48,13 @@ def aft_fre_analysis(textpair):
             aft_res[pair[1]] += 1
 
 def find_O1O2(curtext):
-    O1 = curtext[0]
+    # O1 = curtext[0]
     O2 = curtext[1]
     return aft_res[O2] - dict_res[curtext]
 
 def find_O2O1(curtext):
     O1 = curtext[0]
-    O2 = curtext[1]
+    # O2 = curtext[1]
     return pre_res[O1] - dict_res[curtext]
 
 def X_square(curtext, t):

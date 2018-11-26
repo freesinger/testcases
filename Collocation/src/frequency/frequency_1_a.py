@@ -38,6 +38,8 @@ def sort_result(result):
             result.write(' '.join(str(s) for s in i) + '\n')
 
 def main():
+    if not os.path.exists(resdir):
+        os.mkdir(resdir)
     with open(resdir + '1_a.txt', 'w', encoding='gbk') as res:
         doc = list(os.listdir(rootdir))     
         for i in doc:
