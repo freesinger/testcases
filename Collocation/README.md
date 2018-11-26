@@ -12,10 +12,10 @@
 
 - results：测试结果
 
-- task.md：任务要求
+- Others：
 
-- Collocation.md：实验总结
+  - task.md：任务要求
 
-- meanVariance.xlsx：”改革 开放“均值方差图
+  - meanVariance.xlsx：”改革 开放“均值方差图
 
-  
+- Collocation.pdf：实验总结
