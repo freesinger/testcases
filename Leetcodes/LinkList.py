@@ -139,9 +139,11 @@ class DoubleLinkedList(object):
         temp = DoubleListNode(item)
         if self.head is not None:
             temp.setNext(self.head)
+            # find the last Node
             current = self.head
             while current.next is not self.head:
                 current = current.next
+            # set the last Node's pointers
             current.next = temp
             temp.prev = current
             self.head = temp
@@ -207,7 +209,7 @@ class DoubleLinkedList(object):
             else:
                 current.next.prev = current.prev
                 current.prev.next = current.next
-                # set head is important
+                # set head or print in infinity loop
                 self.head = current.next
         else:
             current.prev.next = current.next
