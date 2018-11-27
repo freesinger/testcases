@@ -78,13 +78,13 @@ class List(object):
             else:
                 previous = current
                 current = current.getNext()
-        
-        if previous == self.head:
+
+        if previous == None:
             self.head = current.getNext()
         else:
             previous.setNext(current.getNext())
 
-    def print(self):
+    def printValue(self):
         if self.head == None:
             return None
         current = self.head
