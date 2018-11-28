@@ -51,6 +51,23 @@ class SingleLinkedList(object):
                 current = current.getNext()
             current.setNext(SingleListNode(item))
 
+    def insert(self, position, item):
+        temp = SingleListNode(item)
+        if self.head == None:
+            self.head = temp
+        elif position > self.size() or position < 0:
+            return print('position out of range')
+        elif position == 0:
+            self.prepend(item)
+        else:
+            current = self.head
+            count = 1
+            while count < position:
+                current = current.next
+                count += 1
+            temp.setNext(current.getNext())
+            current.setNext(temp)
+
     def size(self):
         current = self.head
         count = 0
@@ -81,6 +98,8 @@ class SingleLinkedList(object):
         while not found:
             if current.getData() == item:
                 found = True
+            elif current.getNext() == None and current.getData() != item:
+                return print(item, "not exist!")
             else:
                 previous = current
                 current = current.getNext()
@@ -90,7 +109,7 @@ class SingleLinkedList(object):
         else:
             previous.setNext(current.getNext())
 
-    def printValue(self):
+    def print(self):
         if self.head == None:
             return None
         current = self.head
@@ -167,6 +186,27 @@ class DoubleLinkedList(object):
             temp.next = self.head
             self.head.prev = temp
     
+    def insert(self, position, item):
+        temp = DoubleListNode(item)
+        if self.head == None:
+            temp.next = temp
+            temp.prev = temp
+            self.head = temp
+        elif position > self.size() or position < 0:
+            return print("position out range")
+        elif position == 0:
+            self.prepend(item)
+        else:
+            current = self.head
+            count = 1
+            while count < position:
+                current = current.next
+                count += 1
+            temp.next = current.next
+            current.next.prev = temp
+            temp.prev = current
+            current.next = temp
+
     def size(self):
         current = self.head
         count = 1
@@ -215,7 +255,7 @@ class DoubleLinkedList(object):
             current.prev.next = current.next
             current.next.prev = current.prev
     
-    def printValue(self):
+    def print(self):
         if self.head == None:
             return print(None)
         current = self.head
@@ -224,10 +264,33 @@ class DoubleLinkedList(object):
             current = current.next
         print(current.val)        
 
+"""
+# Single linked list test
+lst = SingleLinkedList()
+print(lst.isEmpty())
+lst.append(3)
+lst.prepend(2)
+lst.prepend(1)
+lst.insert(3, 4)
+lst.insert(0, 0)
+lst.print()
+# 0 1 2 3 4
+lst.remove(5)
+# 5 not exsit!
+lst.remove(4)
+print(lst.find(1))
+# 2
+lst.print()
+# 0 1 2 3
+print(lst.size())
+# 4
+"""
 
+#-------------------------#
 """
 # Double linked list test
 
+# Case A:
 dlst = DoubleLinkedList()
 dlst.append(1)
 dlst.prepend(2)
@@ -241,6 +304,8 @@ dlst.remove(3)
 dlst.printValue()
 # 2
 
+
+# Case B:
 dlst = DoubleLinkedList()
 print(dlst.isEmpty())
 # True
@@ -258,4 +323,21 @@ print(dlst.find(1))
 # 1
 print(dlst.find(3))
 # None
+
+# Case C:
+dlst = DoubleLinkedList()
+dlst.insert(1, 4)
+dlst.append(5)
+dlst.prepend(3)
+dlst.print()
+# 3 4 5
+dlst.insert(0, 2)
+dlst.print()
+# 2 3 4 5
+dlst.remove(2)
+dlst.remove(5)
+dlst.print()
+# 3 4 
+print(dlst.size())
+# 2
 """
