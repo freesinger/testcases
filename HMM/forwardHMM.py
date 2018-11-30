@@ -120,13 +120,11 @@ def main():
     if not os.path.exists(resdir):
         os.makedirs(resdir)
     with open(resdir + 'result.txt', 'w', encoding='gbk') as res:
-    # with open(resdir + 'result.txt', 'a', encoding='gbl') as res:
         for i in train_doc:
             if i == 'DS_Store':
                 train_doc.remove(i)
         for file in train_doc:
             train_text_proc(traindir + file)
-        # print(proc_sentence, tag, pair_tag, word_tag_freq)
         freq_analysis(tag)
         freq_analysis(pair_tag)
         freq_analysis(word_tag_freq)
@@ -134,17 +132,13 @@ def main():
             text_proc(testdir + file, test_proc_sentence)
         for file in valid_doc:
             text_proc(validdir + file, valid_proc_sentence)
-        # print(proc_sentence)
         print("Process Done!")
-        # print(tag, pair_tag, word_tag_freq, word_tag)
 
         for sentence in test_proc_sentence:
             res.write(str(forwardHMM(sentence)) + '| \t')
-            # print(forwardHMM(sentence))
         res.write('\n')
         for sentence in valid_proc_sentence:
             res.write(str(forwardHMM(sentence)) + '| \t')
-
         print("Done!")
             
 if __name__ == "__main__":
