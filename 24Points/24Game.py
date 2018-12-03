@@ -1,8 +1,8 @@
 """
 Two solutions for 24Game
 """
-import math
 import itertools
+import time
 
 TargetResult = 24
 CardNumber = 4
@@ -129,7 +129,6 @@ class Solution(object):
         comb = list(itertools.permutations(numberlist))
         for c in comb:
             flist = list(i for i in c)
-
             temp = flist.copy()
             single = [flist[0]]
             temp.remove(flist[0])
@@ -154,22 +153,25 @@ class Solution(object):
         return False
 
 def main():
-    
-    # append will be [[]]
-    Result.extend(input("Input 4 number:").split())
+    # append() will be [[]]
+    Result.extend(input("Input %d number:" % CardNumber).split(','))
     for n in Result:
         number.append(int(n))
     
     Game = Solution()
     # Recursive
+    S_Atime = time.time()
     if Game.GameAnalysis(CardNumber):
         print("Solution A Success.")
-        print(Result[0])
+        print("Excute time:", time.time() - S_Atime, 's')
     else:
         print("Solution A Fail.")
     # Dynamic Program
+    S_Btime = time.time()
     if Game.OptimizedAnalysis(number):
         print("Solution B Success.")
+        print("Excute time:", time.time() - S_Btime, 's')
+        print(Result[0])
     else:
         print("Solution B Fail.")
     

@@ -11,13 +11,6 @@ def operatorSet():
             for k in range(len(operator)):
                 temp = (operator[i], operator[j], operator[k])
                 operator_set.append(temp)
-            
-def calculate(deck):
-    for com in deck:
-        print(com)
-
-# def recursiveCal(deck):
-    # for 
 
 def main():
     decklist = np.array([random.randrange(1, 14) for i in range(4)])
