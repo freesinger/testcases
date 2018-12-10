@@ -55,6 +55,7 @@ class Solution(object):
                 # pop order
                 stack.pop(index + 1)
                 stack.pop(index)
+                # (){}[]
                 index = 0 if index - 1 < 0 else index - 1
             else:
                 return False
