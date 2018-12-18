@@ -64,7 +64,7 @@ words_list = ['<unknow>'] + [x[0] for x in sorted_words]
 # 这里选择保留高频词的数目，词只有不到七千个，所以我全部保留
 words_list = words_list[:len(words_list)]
 
-print('词汇表大小 ： {}'.format(words_list))
+print('词汇表大小 ： {}'.format(len(words_list)))
 
 with open(VOCAB_DATA, 'w') as f:
     for word in words_list:
