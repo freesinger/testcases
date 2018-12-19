@@ -14,7 +14,7 @@ BATCH_SIZE = 64  # batch大小
 
 CKPT_PATH = 'ckpt/model_ckpt'  # 模型保存路径
 
-VOCAB_PATH = 'vocab/poetry.vocab'  # 词表路径
+VOCAB_PATH = 'vocab/poetry_vocab.txt'  # 词表路径
 
 EMB_KEEP = 0.5  # embedding层dropout保留率
 

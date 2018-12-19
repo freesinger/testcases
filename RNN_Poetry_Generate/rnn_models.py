@@ -5,7 +5,6 @@ import setting
 HIDDEN_SIZE = 128  # LSTM隐藏节点个数
 NUM_LAYERS = 2  # RNN深度
 
-
 def doublewrap(function):
     @functools.wraps(function)
     def decorator(*args, **kwargs):
@@ -15,7 +14,6 @@ def doublewrap(function):
             return lambda wrapee: function(wrapee, *args, **kwargs)
 
     return decorator
-
 
 @doublewrap
 def define_scope(function, scope=None, *args, **kwargs):

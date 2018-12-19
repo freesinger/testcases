@@ -1,15 +1,11 @@
 import sys
-from importlib import reload
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 import collections
 
 ORIGIN_DATA = 'origin_data/poetry.txt'  # 源数据路径
 
 OUTPUT_DATA = 'processed_data/poetry.txt'  # 输出向量路径
 
-VOCAB_DATA = 'vocab/poetry.vocab'
+VOCAB_DATA = 'vocab/poetry_vocab.txt'
 
 
 def word_to_id(word, id_dict):
@@ -28,7 +24,7 @@ with open(ORIGIN_DATA, 'r') as f:
     # 逐行进行处理
     for line in f_lines:
         # 去除前后空白符，转码
-        strip_line = line.strip().decode('utf8')
+        strip_line = line.strip()
         try:
             # 将唐诗分为标题和内容
             title, content = strip_line.split(':')
@@ -64,7 +60,7 @@ words_list = ['<unknow>'] + [x[0] for x in sorted_words]
 # 这里选择保留高频词的数目，词只有不到七千个，所以我全部保留
 words_list = words_list[:len(words_list)]
 
-print('词汇表大小 ： {}'.format(len(words_list)))
+print('词汇表大小 : {}'.format(len(words_list)))
 
 with open(VOCAB_DATA, 'w') as f:
     for word in words_list:
