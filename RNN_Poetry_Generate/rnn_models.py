@@ -54,8 +54,8 @@ class TrainModel(object):
         :return:
         """
         lstm_cell = [
-            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE), output_keep_prob=self.rnn_keep) for
-            _ in range(NUM_LAYERS)]
+            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE), \
+            output_keep_prob=self.rnn_keep) for _ in range(NUM_LAYERS)]
         cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
         return cell
 

@@ -25,18 +25,15 @@
 - 构建RNN网络结构如下：
 
 ```python
-    def cell(self):
-        """
-        rnn网络结构
-        :return:
-        """
-        lstm_cell = [
-            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE),
-                                          output_keep_prob=self.rnn_keep) for
-            _ in range(NUM_LAYERS)]
-        cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
-        return cell
-
+def cell(self):
+    """
+    rnn网络结构
+    """
+    lstm_cell = [
+        tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE), \
+        output_keep_prob=self.rnn_keep) for _ in range(NUM_LAYERS)]
+    cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
+    return cell
 ```
 
 - 定义前向传播、反向传播过程及损失函数
