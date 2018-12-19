@@ -25,12 +25,18 @@
 - 构建RNN网络结构如下：
 
 ```python
-def cell(self):
-    # rnn网络结构
-    lstm_cell = [
-        tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE),                 output_keep_prob=self.rnn_keep) for _ in range(NUM_LAYERS)]
-    cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
-    return cell
+    def cell(self):
+        """
+        rnn网络结构
+        :return:
+        """
+        lstm_cell = [
+            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE),
+                                          output_keep_prob=self.rnn_keep) for
+            _ in range(NUM_LAYERS)]
+        cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
+        return cell
+
 ```
 
 - 定义前向传播、反向传播过程及损失函数
@@ -191,7 +197,7 @@ def generate_word(prob):
 |:----------:|:-------------------------:|
 | Python     | 3.6.5 64-bit              |
 | TensorFlow | 1.12.0                    |
-| IDEL       | Visual Studio Code 1.30.0 |
+| IDEL       | Visual Studio Code 1.30.0 |
 
 | Platform/Hardware | Info                            |
 |:-----------------:|:-------------------------------:|
@@ -201,9 +207,9 @@ def generate_word(prob):
 
 #### 8. 结果分析
 
-- [x] **随机作诗**
+- [x]  **随机作诗**
 
-截取较好五组诗句如下： 
+截取较好五组诗句如下： 
 
 > - 行座清成浪，花频旧起还。还人欲送面，山计易傍吟。
 > 
@@ -215,10 +221,8 @@ def generate_word(prob):
 > 
 > - 夏里上无更似南，消风日政水无同。尽心宿作桐萦起，荏复无留隔海回。一绕团纹终里起，功闲偏倚折深台。聊愁槿跸万垂侣，全是丹收必松休。
 
-- [x] **藏头诗**
+- [x]  **藏头诗**
 
 输入“清华”，截取较好五组诗句如下：
 
 > - 
-
-
