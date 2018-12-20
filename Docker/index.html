@@ -1,0 +1,69 @@
+CTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+        <!--meta http-equiv="refresh" content="3;url=http://www.sina.com.cn" /-->
+        <title>register page</title>
+    </head>
+    <body>
+        
+        <form action="http://192.168.0.189:8000" method="post">
+            <table border="1" bordercolor="#0000ff" cellpadding=10 cellspacing=0 width=600>
+                <tr>
+                    <th colspan="2">Register Table</th>
+                </tr>               
+                <tr>
+                    <td>Input Username:</td>
+                    <td><input type="text" name="user" /></td>
+                </tr>               
+                <tr>
+                    <td>Input Password:</td>
+                    <td><input type="password" name="psw" /></td>
+                </tr>               
+                <tr>
+                    <td>Confirm Password:</td>
+                    <td><input type="password" name="repsw" /></td>
+                </tr>               
+                <tr>
+                    <td>Select Sex:</td>
+                    <td>
+                        <input type="radio" name="sex" value="nan" />Boy 
+                        <input type="radio" name="sex" value="nv" />Girl
+                    </td>
+                </tr>               
+                <tr>
+                    <td>Select Technology:</td>
+                    <td>
+                        <input type="checkbox" name="tech" value="java" />JAVA
+                        <input type="checkbox" name="tech" value="html" />HTML
+                        <input type="checkbox" name="tech" value="css" />CSS
+                    </td>
+                </tr>               
+                <tr>
+                    <td>Select Country:</td>
+                    <td>
+                        <select name="country">
+                            <option value="none">--Select Country--</option>
+                            <option value="usa">--America--</option>
+                            <option value="en">--English--</option>
+                            <option value="cn">--China--</option>
+                        </select>
+                    </td>
+                </tr>               
+                <tr>
+                    <th colspan="2">
+                        <input type="reset" value="Clear Data" />
+                        <input type="submit" value="Submit Data" />
+                    </th>
+                </tr>               
+            </table>
+            
+        </form>
+        
+        
+    </body>
+</html> 
+
+
+
+
