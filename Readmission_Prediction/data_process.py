@@ -1,15 +1,16 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from statistics import mode
-from sklearn.preprocessing import MinMaxScaler
 
 NUM_RECORDS = 101766
 NUM_FEATURE = 50
+ORIGNAL_DATA = '~/Desktop/Codes/Python_Testcases/Readmission_Prediction/dataset_diabetes/diabetic_data.csv'
+RESULT_DATA = '~/Desktop/Codes/Python_Testcases/Readmission_Prediction/dataset_diabetes/processed_data.csv'
 
 # load original data into dataframe and check shape
 # output: (101766, 50)
-dataframe_ori = pd.read_csv("~/Desktop/dataset_diabetes/diabetic_data.csv")
+dataframe_ori = pd.read_csv(ORIGNAL_DATA)
 print(dataframe_ori.shape)
 
 # examine the data types and descriptive stats
@@ -176,7 +177,58 @@ for p in d:
 print(df['admission_source_id'].value_counts())
 
 """
-Classify Diagnooses by ICD-9
+Classify Diagnoses by ICD-9
 """
 # create copy of diagnose
-df['dummy_diag1'] = df['diag_1']
+DUMMY = 'dummy_diag1'
+df[DUMMY] = df['diag_1']
+df[DUMMY] = df[DUMMY].replace('?', -1)
+df.loc[df['diag_1'].str.contains('V'), [DUMMY]] = 0
+df.loc[df['diag_1'].str.contains('E'), [DUMMY]] = 0
+df[DUMMY] = df[DUMMY].astype(float)
+
+# iterate
+# iteritems(): Iterate over (column name, Series) pairs.
+print('\n--Classify Diagnoses Counts--')
+for index, row in df.iterrows():
+    if (row[DUMMY] >= 1 and row[DUMMY] < 140):
+        df.loc[index, DUMMY] = 1
+    elif (row[DUMMY] >= 140 and row[DUMMY] < 240):
+        df.loc[index, DUMMY] = 2
+    elif (row[DUMMY] >= 240 and row[DUMMY] < 280):
+        df.loc[index, DUMMY] = 3
+    elif (row[DUMMY] >= 280 and row[DUMMY] < 290):
+        df.loc[index, DUMMY] = 4
+    elif (row[DUMMY] >= 290 and row[DUMMY] < 320):
+        df.loc[index, DUMMY] = 5
+    elif (row[DUMMY] >= 320 and row[DUMMY] < 390):
+        df.loc[index, DUMMY] = 6
+    elif (row[DUMMY] >= 390 and row[DUMMY] < 460):
+        df.loc[index, DUMMY] = 7
+    elif (row[DUMMY] >= 460 and row[DUMMY] < 520):
+        df.loc[index, DUMMY] = 8
+    elif (row[DUMMY] >= 520 and row[DUMMY] < 580):
+        df.loc[index, DUMMY] = 9
+    elif (row[DUMMY] >= 580 and row[DUMMY] < 630):
+        df.loc[index, DUMMY] = 10
+    elif (row[DUMMY] >= 630 and row[DUMMY] < 680):
+        df.loc[index, DUMMY] = 11               
+    elif (row[DUMMY] >= 680 and row[DUMMY] < 710):
+        df.loc[index, DUMMY] = 12
+    elif (row[DUMMY] >= 710 and row[DUMMY] < 740):
+        df.loc[index, DUMMY] = 13
+    elif (row[DUMMY] >= 740 and row[DUMMY] < 760):
+        df.loc[index, DUMMY] = 14
+    elif (row[DUMMY] >= 760 and row[DUMMY] < 780):
+        df.loc[index, DUMMY] = 15
+    elif (row[DUMMY] >= 780 and row[DUMMY] < 800):
+        df.loc[index, DUMMY] = 16
+    elif (row[DUMMY] >= 800 and row[DUMMY] < 1000):
+        df.loc[index, DUMMY] = 17
+    else:
+        df.loc[index, DUMMY] = 0
+print(df[DUMMY].value_counts())
+# print(df[['diag_1', DUMMY]].head(15).T)
+
+# save to csv
+df.to_csv(RESULT_DATA)
