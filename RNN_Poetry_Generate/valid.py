@@ -100,11 +100,10 @@ def generate_acrostic(head):
         print(poem)
         return poem
 
-
 if __name__ == '__main__':
     number = int(input("Number: "))
     head = input("Head: ")
     for i in range(number):
-        generate_acrostic(head)
+        generate_acrostic(head)  
     for j in range(number):
         generate_poem()

@@ -23,12 +23,10 @@ print(dataframe_ori.describe())
 # make a copy of the dataframe for preprocessing
 df = dataframe_ori.copy(deep = True)
 
-"""
 # explore unique values in each column
 print("\n--Unique Values in Each Column--")
 for col in dataframe_ori.columns:
     print(col, dataframe_ori[col].unique())
-"""
 
 # deal with missing values
 print("\n--Missing Values Set--")
@@ -59,12 +57,11 @@ df = df.drop(['weight', 'payer_code', 'medical_specialty'], axis = 1)
 # drop 'examide' and 'citoglipton' with same value 'No'
 df = df.drop(['examide', 'citoglipton'], axis = 1)
 # drop bad data with 3 '?' in diag
-# drop died patient data which 'discharge_disposition_id' == 11 | 19 | 20 | 21 indicates 'Expired'
-# drop 3 data with 'Unknown/Invalid' gender
 drop_ID = set(df[(df['diag_1'] == '?') & (df['diag_2'] == '?') & (df['diag_3'] == '?')].index)
-# drop_ID = set()
+# drop died patient data which 'discharge_disposition_id' == 11 | 19 | 20 | 21 indicates 'Expired'
 drop_ID = drop_ID.union(set(df[(df['discharge_disposition_id'] == 11) | (df['discharge_disposition_id'] == 19) | \
                                (df['discharge_disposition_id'] == 20) | (df['discharge_disposition_id'] == 21)].index))
+# drop 3 data with 'Unknown/Invalid' gender
 drop_ID = drop_ID.union(df['gender'][df['gender'] == 'Unknown/Invalid'].index)
 new_ID = list(set(df.index) - set(drop_ID))
 df = df.iloc[new_ID]

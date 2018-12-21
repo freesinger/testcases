@@ -1,6 +1,10 @@
 import tensorflow as tf
 import functools
 import setting
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 
 HIDDEN_SIZE = 128  # LSTM隐藏节点个数
 NUM_LAYERS = 2  # RNN深度
@@ -12,7 +16,6 @@ def doublewrap(function):
             return function(args[0])
         else:
             return lambda wrapee: function(wrapee, *args, **kwargs)
-
     return decorator
 
 @doublewrap
@@ -54,7 +57,7 @@ class TrainModel(object):
         :return:
         """
         lstm_cell = [
-            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE), \
+            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.LSTMCell(HIDDEN_SIZE), \
             output_keep_prob=self.rnn_keep) for _ in range(NUM_LAYERS)]
         cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
         return cell
@@ -146,7 +149,7 @@ class EvalModel(object):
         :return:
         """
         lstm_cell = [
-            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE), output_keep_prob=self.rnn_keep) for
+            tf.nn.rnn_cell.DropoutWrapper(tf.nn.rnn_cell.LSTMCell(HIDDEN_SIZE), output_keep_prob=self.rnn_keep) for
             _ in range(NUM_LAYERS)]
         cell = tf.nn.rnn_cell.MultiRNNCell(lstm_cell)
         return cell

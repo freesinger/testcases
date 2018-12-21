@@ -192,7 +192,7 @@ def generate_word(prob):
 
 | Tool       | Version                   |
 |:----------:|:-------------------------:|
-| Python     | 3.6.5 64-bit              |
+| Python     | 3.6.7 64-bit              |
 | TensorFlow | 1.12.0                    |
 | IDEL       | Visual Studio Code 1.30.0 |
 
