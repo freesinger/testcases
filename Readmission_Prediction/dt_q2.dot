@@ -1,0 +1,29 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<discharge_disposition_id_2 &le; 0.0<br/>entropy = 1.0<br/>samples = 90350<br/>value = [45195, 45155]<br/>class = No>, fillcolor="#e5813900"] ;
+1 [label=<time_in_hospital &le; -1.117<br/>entropy = 0.986<br/>samples = 64942<br/>value = [37061, 27881]<br/>class = No>, fillcolor="#e581393f"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<dummy_diag1_7.0 &le; 0.0<br/>entropy = 0.767<br/>samples = 8669<br/>value = [6730, 1939]<br/>class = No>, fillcolor="#e58139b6"] ;
+1 -> 2 ;
+3 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 3 ;
+686 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 686 ;
+1205 [label=<time_in_hospital &le; -0.777<br/>entropy = 0.996<br/>samples = 56273<br/>value = [30331, 25942]<br/>class = No>, fillcolor="#e5813925"] ;
+1 -> 1205 ;
+1206 [label="(...)", fillcolor="#C0C0C0"] ;
+1205 -> 1206 ;
+1207 [label="(...)", fillcolor="#C0C0C0"] ;
+1205 -> 1207 ;
+6562 [label=<discharge_disposition_id_2 &le; 1.0<br/>entropy = 0.905<br/>samples = 25408<br/>value = [8134, 17274]<br/>class = Readm>, fillcolor="#399de587"] ;
+0 -> 6562 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+6563 [label=<entropy = 0.0<br/>samples = 5987<br/>value = [0, 5987]<br/>class = Readm>, fillcolor="#399de5ff"] ;
+6562 -> 6563 ;
+6564 [label=<age &le; 1.219<br/>entropy = 0.981<br/>samples = 19421<br/>value = [8134, 11287]<br/>class = Readm>, fillcolor="#399de547"] ;
+6562 -> 6564 ;
+6565 [label="(...)", fillcolor="#C0C0C0"] ;
+6564 -> 6565 ;
+8192 [label="(...)", fillcolor="#C0C0C0"] ;
+6564 -> 8192 ;
+}

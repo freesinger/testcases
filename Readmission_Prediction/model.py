@@ -20,7 +20,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_a
 from imblearn.over_sampling import SMOTE
 from sklearn.tree import DecisionTreeClassifier
 from collections import Counter
-from PIL import Image
+from IPython.display import display, Image
 from sklearn.ensemble import RandomForestClassifier
 
 ORIGIN_DATA = '~/Desktop/Codes/Python_Testcases/Readmission_Prediction/dataset_diabetes/processed_data.csv'
@@ -457,7 +457,8 @@ auc_dte = roc_auc_score(Y_dev, Y_dev_predict)
 dot_dt_q2 = tree.export_graphviz(dte, out_file="dt_q2.dot", feature_names=X_train.columns, max_depth=2,
                                  class_names=["No","Readm"], filled=True, rounded=True, special_characters=True)
 graph_dt_q2 = pydotplus.graph_from_dot_file('dt_q2.dot')
-# Image(graph_dt_q2.create_png())
+
+display(Image(graph_dt_q2.create_png()))
 
 # Create list of top most features based on importance
 '''
@@ -501,7 +502,7 @@ recall_dtg = recall_score(Y_dev, Y_dev_predict)
 auc_dtg = roc_auc_score(Y_dev, Y_dev_predict)
 
 
-#-----------------------------------------------
+#----------------------------------------------------------------------------------------------------------------
 # Random Forest
 train_input = df_pd[feature_set_1_no_int]
 train_output = df_pd['readmitted']
@@ -609,7 +610,7 @@ plt.title('Most important features - Random Forest (gini) (Question 2 - complex 
 plt.show()
 '''
 
-
+'''
 # plotting the accuracy for training and test
 plt.figure(figsize=(14, 5))
 ax = plt.subplot(111)
@@ -665,3 +666,4 @@ ax.spines['top'].set_visible(False)
 ax.legend()
 
 plt.show()
+'''
