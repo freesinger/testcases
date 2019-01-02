@@ -1,0 +1,48 @@
+'''
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+Example:
+Input:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+Output: 1->1->2->3->4->4->5->6
+'''
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        elem = list()
+        if lists is None or lists == []:
+            return None
+        for l in lists:
+            if l is None or l == []:
+                continue
+            while l.next != None:
+                elem.append(l.val)
+                l = l.next
+            elem.append(l.val)
+        # print(elem)
+        elem = sorted(elem)
+        # print(elem)
+        nodes = list()
+        for pos in range(len(elem)):
+            cur = ListNode(elem[pos])
+            # print(type(cur))
+            nodes.append(cur)
+        for i in range(len(nodes) - 1):
+            nodes[i].next = nodes[i + 1]
+        # print(nodes[0].val, type(nodes), type(nodes[0].next.next))
+        # print(nodes)
+        return None if nodes == [] else nodes[0]
