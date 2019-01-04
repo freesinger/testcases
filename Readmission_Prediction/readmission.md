@@ -4,13 +4,11 @@
 
 - **How well** can we predict hospital readmission in this dataset with **limited features**?
 
-
-
 ### Steps
 
 1. **Cleaning tasks:** dropping bad data, dealing with missiung values
 
-   - bad data /  missing values
+   - bad data /  missing values
 
    > --Missing Values Set--
    > 
@@ -40,12 +38,6 @@
 
    - merging
 
-2. **Modification of features:** standardization, log transfonms
+2. **Modification of features:** standardization, log transfonms
 
 3. **Creation or derivation of new features from exsiting ones**
-
-
-
-
-
-
