@@ -1,6 +1,6 @@
-import QtQuick 2.11
+import QtQuick 2.0
 
-Circle {
+Rectangle {
     width: 200
     height: 200
     color: "green"
