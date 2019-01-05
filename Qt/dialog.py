@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QApplication, QDialog, QLineEdit, QPushButton, QVB
 
 class Form(QDialog):
     def __init__(self, parent=None):
-        super(Form, self).__init__(parent)
+        super().__init__(parent)
         # Set window name
         self.setWindowTitle("Write your name")
         # Create widgets
@@ -19,7 +19,7 @@ class Form(QDialog):
 
     # Greet user in console
     def greetings(self):
-        print("Hello {}".format(self.edit.text()))
+        print("づ￣3￣）づ╭❤～ {}".format(self.edit.text()))
 
     
 if __name__ == '__main__':
