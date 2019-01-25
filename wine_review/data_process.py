@@ -5,6 +5,7 @@ DATAPATH = './data/'
 FORMAL = DATAPATH + 'winemag-data_first150k.csv'
 LATER = DATAPATH + 'winemag-data-130k-v2.csv'
 
+pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
 data = pd.read_csv(FORMAL)
