@@ -12,7 +12,8 @@ class Solution(object):
             idx_dict[string].append(idx)
         return [list(strs[i] for i in j) for j in idx_dict.values()]
 
-t = Solution()
-# i = input()
-# ['', '']
-print(t.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+if __name__ == '__main__':
+    t = Solution()
+    # i = input()
+    # ['', '']
+    print(t.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
