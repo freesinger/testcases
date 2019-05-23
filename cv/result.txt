@@ -1,0 +1,9 @@
+Crack 1, Max: 9.2195, Mean: 5.4276
+Crack 2, Max: 5.8310, Mean: 2.3605
+Crack 3, Max: 11.1803, Mean: 3.2303
+Crack 4, Max: 30.8707, Mean: 9.6051
+Crack 5, Max: 23.0000, Mean: 8.1985
+Crack 6, Max: 9.4340, Mean: 2.7000
+Crack 7, Max: 8.4853, Mean: 6.0634
+Crack 8, Max: 14.0357, Mean: 6.5480
+Crack 9, Max: 14.8661, Mean: 9.1851
