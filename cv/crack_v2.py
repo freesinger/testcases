@@ -13,6 +13,51 @@ if os.path.isfile(RESULT):
 def distance(A, B):
     return np.power(np.power(A[0]-B[0], 2) + np.power(A[1]-B[1], 2), 1/2)
 
+
+def getCooByRow(image_mask):
+    coo_A, coo_B = [], []
+    for i in range(image_mask.shape[0]):
+        for j in range(image_mask.shape[1]-1):
+            if image_mask[i, j-1] == False and image_mask[i, j] == True:
+                coo_A.append((i, j))
+            if image_mask[i, j] == True and image_mask[i, j+1] == False:
+                coo_B.append((i, j))
+    return coo_A, coo_B
+
+
+def getCooByCol(image_mask):
+    coo_A, coo_B = [], []
+    for i in range(image_mask.shape[1]):
+        for j in range(image_mask.shape[0]-1):
+            if image_mask[j-1, i] == False and image_mask[j, i] == True:
+                coo_A.append((i, j))
+            if image_mask[j, i] == True and image_mask[j+1, i] == False:
+                coo_B.append((i, j))
+    return coo_A, coo_B
+
+
+def ratio(image_mask):
+    for i in range(image_mask.shape[0]):
+        find = False
+        for j in range(image_mask.shape[1]-1):
+            if image_mask[i, j-1] | image_mask[i, j] == True:
+                start = [i, j]
+                find = True
+                break;
+        if find:
+            break
+    for i in range(image_mask.shape[0]-1,0,-1):
+        find = False
+        for j in range(image_mask.shape[1]-1,0,-1):
+            if image_mask[i, j-1] | image_mask[i, j] == True:
+                end = [i, j]
+                find = True
+                break;
+        if find:
+            break
+    return (end[1]-start[1]) / (end[0]-start[0])
+
+
 for p in range(1, 10):
     Crack = data.imread(IMGPATH+'crack{}.jpg'.format(p), as_gray=True)
     mask = Crack < np.full(Crack.shape, 0.9)
@@ -50,47 +95,6 @@ for p in range(1, 10):
 
     # ll = measure.label(Crack, connectivity=2)
     # print('Region later: {}'.format(ll.max()+1))
-
-    def getCooByRow(image_mask):
-        coo_A, coo_B = [], []
-        for i in range(image_mask.shape[0]):
-            for j in range(image_mask.shape[1]-1):
-                if image_mask[i, j-1] == False and image_mask[i, j] == True:
-                    coo_A.append((i, j))
-                if image_mask[i, j] == True and image_mask[i, j+1] == False:
-                    coo_B.append((i, j))
-        return coo_A, coo_B
-
-    def getCooByCol(image_mask):
-        coo_A, coo_B = [], []
-        for i in range(image_mask.shape[1]):
-            for j in range(image_mask.shape[0]-1):
-                if image_mask[j-1, i] == False and image_mask[j, i] == True:
-                    coo_A.append((i, j))
-                if image_mask[j, i] == True and image_mask[j+1, i] == False:
-                    coo_B.append((i, j))
-        return coo_A, coo_B
-
-    def ratio(image_mask):
-        for i in range(image_mask.shape[0]):
-            find = False
-            for j in range(image_mask.shape[1]-1):
-                if image_mask[i, j-1] | image_mask[i, j] == True:
-                    start = [i, j]
-                    find = True
-                    break;
-            if find:
-                break
-        for i in range(image_mask.shape[0]-1,0,-1):
-            find = False
-            for j in range(image_mask.shape[1]-1,0,-1):
-                if image_mask[i, j-1] | image_mask[i, j] == True:
-                    end = [i, j]
-                    find = True
-                    break;
-            if find:
-                break
-        return (end[1]-start[1]) / (end[0]-start[0])
 
 
     tangle = ratio(Crack)
