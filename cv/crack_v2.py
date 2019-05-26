@@ -2,18 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage import morphology, measure, color, data, io
 import os
-import shutil
 
-RESULT = 'result_v2.txt'
 
-if os.path.isfile(os.path.dirname(os.path.realpath(__file__))+'/'+RESULT):
-    os.remove(os.path.dirname(os.path.realpath(__file__))+'/'+RESULT)
+RESULT = os.path.dirname(os.path.realpath(__file__))+'/'+'result_v2.txt'
+IMGPATH = os.path.dirname(os.path.realpath(__file__))+'/pics/'
+
+if os.path.isfile(RESULT):
+    os.remove(RESULT)
 
 def distance(A, B):
     return np.power(np.power(A[0]-B[0], 2) + np.power(A[1]-B[1], 2), 1/2)
 
 for p in range(1, 10):
-    Crack = data.imread('./pics/crack{}.jpg'.format(p), as_gray=True)
+    Crack = data.imread(IMGPATH+'crack{}.jpg'.format(p), as_gray=True)
     mask = Crack < np.full(Crack.shape, 0.9)
     # io.imshow(Crack)
     # plt.show()
