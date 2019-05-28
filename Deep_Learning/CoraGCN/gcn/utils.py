@@ -62,7 +62,7 @@ def load_dataset(path='../cora/', dataset='cora'):
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
 
-    fetures = normalize(features)
+    features = normalize(features)
     adj = normalize(adj + sp.eye(adj.shape[0]))
 
     # train, validate, test index split
@@ -71,7 +71,7 @@ def load_dataset(path='../cora/', dataset='cora'):
     idx_test = torch.LongTensor(range(500, 1500))
 
     features = torch.FloatTensor(np.array(features.todense()))
-    labels = torch.LongTensor(np.where(labels)[1])
+    labels = torch.LongTensor(np.where(labels)[1]) # union of y coordinate of 1
     adj = sparse_mx_to_torch_sparse_tensor(adj)
                     
     return adj, fetures, labels, idx_train, idx_val, idx_test
