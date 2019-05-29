@@ -27,7 +27,7 @@ def normalize(m):
 
 def sparse_mx_to_torch_sparse_tensor(spm):
     '''Convert sparse matrix to a torch sparse tensor'''
-    spm = spm.tocoo().astype(np.int32)
+    spm = spm.tocoo().astype(np.float32)
     indices = torch.from_numpy(
         np.vstack((spm.row, spm.col)).astype(np.int64))
     value = torch.from_numpy(spm.data)
@@ -43,8 +43,6 @@ def load_dataset(path=DIRNAME+'/../cora/', dataset='cora'):
                                         dtype=np.dtype(str))
     '''
     array([['31336', '0', '0', ..., '0', '0', 'Neural_Networks'],
-       ['1061127', '0', '0', ..., '0', '0', 'Rule_Learning'],
-       ['1106406', '0', '0', ..., '0', '0', 'Reinforcement_Learning'],
        ...,
        ['24043', '0', '0', ..., '0', '0', 'Neural_Networks']], dtype='<U22')
     '''
