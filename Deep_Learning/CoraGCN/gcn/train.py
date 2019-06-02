@@ -52,7 +52,7 @@ if args.cuda:
     idx_val = idx_val.cuda()
     idx_test = idx_test.cuda()
 
-print('labels: ', labels.shape)
+# print('labels: ', labels.shape)
 def train(epoch):
     t = time.time()
     model.train()

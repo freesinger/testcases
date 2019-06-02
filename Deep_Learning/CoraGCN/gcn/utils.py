@@ -67,7 +67,7 @@ def load_dataset(path=DIRNAME+'/../cora/', dataset='cora'):
     adj = normalize(adj + sp.eye(adj.shape[0]))
 
     # train, validate, test index split
-    idx_train = torch.LongTensor(range(140))
+    idx_train = torch.LongTensor(range(199))
     idx_val = torch.LongTensor(range(200, 500))
     idx_test = torch.LongTensor(range(500, 1500))
 

@@ -32,6 +32,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model, data = Net().to(device), data.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
 
+print(data.train_mask.sum(), data.val_mask.sum(), data.test_mask.sum())
 
 def train():
     model.train()
