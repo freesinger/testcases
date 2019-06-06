@@ -36,6 +36,7 @@ elif not args.interface:
 start_time = datetime.now()
 targets = [args.target1, args.target2]
 print('[*] Resolving target address...')
+count = 0
 sys.stdout.flush()
 
 try:
@@ -66,7 +67,8 @@ except IOError:
         sys.exit(1)
 
 print('MACs:', MACs)
-print('Target ips: {:} and {:}'.format(targets[0], targets[1]))
+print('Target ips: {:} and {:}\n'.format(targets[0], targets[1]))
+print('Launching attack...\n')
 
 # Excute until external interrupt
 while True:
@@ -78,7 +80,10 @@ while True:
             print('[!] Failed to send poison')
             sys.exit(1)
         if not args.quiet:
-            print('[*] Poison sent to {:} and {:}'.format(targets[0], targets[1]))
+            count += 1
+            print('[*] {:} poison sent to {:} and {:}'.format(count,
+                                                              targets[0],
+                                                              targets[1]))
         else:
             pass
         pause(2.5)
@@ -86,7 +91,7 @@ while True:
         break
 
 # Clean up
-print('\n[*] Fixing targets...')
+print('\n[*] Stopped ARP poison attack. Restoring network...')
 sys.stdout.flush()
 for i in range(0, 16):
     try:
