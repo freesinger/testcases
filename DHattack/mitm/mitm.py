@@ -105,7 +105,8 @@ try:
     if args.forward:
         print('[*] Disabling IP forwarding...')
         sys.stdout.flush()
-        PreAttack.toggle_IP_Forward().disable_IP_Forward()
+        # Enable in Linux
+        # PreAttack.toggle_IP_Forward().disable_IP_Forward()
         print('[DONE]')
 except IOError:
     print('[FAIL]')

