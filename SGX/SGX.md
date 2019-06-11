@@ -6,7 +6,7 @@ Intel Safe Guard Extentions（SGX）是一组安全相关的指令代码，内�
 
 SGX涉及CPU对一部分内存进行加密。enclave仅在CPU本身内即时解密，即使这样，也仅限于enclave内部运行的代码和数据。因此，处理器保护代码不被“窥探”或被其他代码检查。enclave中的代码和数据利用威胁模型，其中enclave受到信任，但不能信任其外的进程（包括操作系统本身和任何管理程序），因此所有这些都被视为潜在的威胁。enclave内的任何代码都无法读取除了加密形式外的enclave内容（如下图所示）。
 
-![SGX isolation](images/SGX isolation.png)
+![SGX isolation](images/SGXisolation.png)
 
 ## 2. SGX侧信道攻击
 
@@ -42,7 +42,7 @@ SGX为enclave程序以及它们的控制单元预留了连续的物理内存，�
 
 enclave和non-enclave共享大量的系统资源，这就给侧信道攻击留下了非常大的攻击面。抽象的可概括为大致三类：**Spatial granularity**，**Temporal observability**和**Side effects**。从系统架构来看可概括为下图。
 
-![attack surfaces](images/attack surfaces.png)
+![attack surfaces](images/attackSurfaces.png)
 
 在当今的Intel CPU架构中内存操作设计一连串的微操作：程序通过第一次访问地址翻译缓存集合并遍历内存中的页表生成的虚拟地址被翻译成物理地址，然后这个物理地址被用来获取缓存（L1，L2，L3...）以及DRAM来完成内存引用。下面具体探讨下这个过程中侧信道攻击的实现方式。
 
@@ -62,7 +62,7 @@ enclave和non-enclave共享大量的系统资源，这就给侧信道攻击留�
 
 典型的页表项的格式（x64）：
 
-![page table](images/page table.png)
+![page table](images/pageTable.png)
 
 下面三个因素可导致在对页表操作时收到侧信道攻击。
 
@@ -98,7 +98,7 @@ enclave和non-enclave共享大量的系统资源，这就给侧信道攻击留�
 
 基于页表的侧信道攻击最典型的就是controlled-channel attack和pigeonholeattack。这类攻击的缺点就是精度只能达到页粒度，无法区分更细粒度的信息。但是在某些场景下，这类攻击已经能够获得大量有用信息。例如下所示，这类基于页表的侧信道攻击可以获得libjpeg 处理的图片信息.经过还原，基本上达到人眼识别的程度。pigeonhole 攻击也展示了大量对现有的安全库的攻击。
 
-![controlled channel attack](images/controlled channel attack.png)
+![controlled channel attack](images/controlledChannelAttack.png)
 
 ### 3.3 基于缓存和内存层级结构攻击
 
