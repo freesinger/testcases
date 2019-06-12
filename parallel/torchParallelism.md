@@ -181,7 +181,7 @@ with torch.cuda.stream(s):
 
 `Python`中的多线程一直为人诟病，我们从多进程入手探讨一下。主要用到`multiprocessing`中`Pool`和`Process`。`Process`启动单个进程，每次对一个任务都需要启动一个进程很麻烦，所以有`Pool`来实现多个进程同时启动。
 
-使用单线程`Serial`模式和多进程的两种模式`Pool`和`Process`分别对数据处理效率进行测试。这里使用的是模拟`C/S`架构中对`packets`进行处理的程序（代码见附录3.1），数据量为`0 ~ 1000000`。可视化效果如下：
+使用单进程`Serial`模式和多进程的两种模式`Pool`和`Process`分别对数据处理效率进行测试。这里使用的是模拟`C/S`架构中对`packets`进行处理的程序（代码见附录3.1），数据量为`0 ~ 1000000`。可视化效果如下：
 
 ![](images/multiprocessing.png)
 
