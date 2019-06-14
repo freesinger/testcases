@@ -26,10 +26,11 @@ SpMat generateSparseMat(int size) {
     SpMat M(size, size);
     // sort(tripleList.begin(), tripleList.end());
     // tripleList.erase(unique(tripleList.begin(), tripleList.end()), tripleList.end());
+    cout<<"Generating sparse matrix..."<<endl;
     M.setFromTriplets(tripleList.begin(), tripleList.end());
     return M;
 }
-
+ 
 
 void SequentialProcess(SpMat A, VectorXd x, VectorXd b) {
     cout<<"Sequential processing with 1 core..."<<endl;
@@ -42,8 +43,8 @@ void SequentialProcess(SpMat A, VectorXd x, VectorXd b) {
     cout<<"Total iteration: "<<cg.iterations()<<endl;
     cout<<"Estimated error: "<<cg.error()<<endl;
     cout<<"Time elapsed: "
-        << chrono::duration_cast<chrono::nanoseconds>(end-start).count()
-        <<" ns"<<endl<<endl;
+        << chrono::duration_cast<chrono::milliseconds>(end-start).count()
+        <<" ms"<<endl<<endl;
 }
 
 
@@ -58,8 +59,8 @@ void ParallelProcess(SpMat A, VectorXd x, VectorXd b, int core_num) {
     cout<<"Total iteration: "<<cg.iterations()<<endl;
     cout<<"Estimated error: "<<cg.error()<<endl;
     cout<<"Time elapsed: "
-        << chrono::duration_cast<chrono::nanoseconds>(end-start).count()
-        <<" ns"<<endl<<endl;
+        << chrono::duration_cast<chrono::milliseconds>(end-start).count()
+        <<" ms"<<endl<<endl;
 }
 
 
@@ -68,8 +69,8 @@ int main(int argc, const char **argv) {
     VectorXd b = VectorXd::Ones(MATRIXSIZE);
     SpMat A = generateSparseMat(MATRIXSIZE);
 
-    // cg.setMaxIterations(MATRIXSIZE*4);
-    // cg.setTolerance(1e-10);
+    cg.setMaxIterations(MATRIXSIZE*10);
+    cg.setTolerance(1e-3);
 
     SequentialProcess(A, x, b);
     for (int i = 2; i <= 8; i += 2) {

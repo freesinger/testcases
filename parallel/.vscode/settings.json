@@ -61,6 +61,8 @@
         "vector": "cpp",
         "*.tcc": "cpp",
         "dense": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "stdlib.h": "c",
+        "omp.h": "c"
     }
 }
