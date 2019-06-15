@@ -72,6 +72,7 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawPixels(n,m,GL_COLOR_INDEX, GL_UNSIGNED_BYTE, image);
+    glFlush();
 }
 
 
@@ -85,7 +86,7 @@ void myReshape(int w, int h)
     else
     gluOrtho2D(0.0, 0.0, (GLfloat) n * (GLfloat) w / (GLfloat) h,(GLfloat) m);
     glMatrixMode(GL_MODELVIEW);
-    // display();
+    display();
 }
 
 void myinit(int num_trds)
@@ -158,13 +159,13 @@ int main(int argc, char *argv[])
     }
 
     glutInit(&argc, argv);
-    // glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(N, M);
     glutCreateWindow("mandlebrot");
     myinit(NUM_THREAD);
     glutReshapeFunc(myReshape);
     double end = omp_get_wtime();
-    // glutDisplayFunc(display);
+    glutDisplayFunc(display);
     printf("Elapsed time: %.2f ms\n", 1000*(end-start));
 
     glutMainLoop();

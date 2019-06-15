@@ -3,3 +3,7 @@
 mandelbrot_omp: mandelbrot_omp.c
 	export DISPLAY=:0
 	gcc mandelbrot_omp.c -o mandelbrot_omp -fopenmp -lGL -lGLU -lglut && ./mandelbrot_omp
+
+# clean up
+clean:
+	rm -f mandelbrot_omp

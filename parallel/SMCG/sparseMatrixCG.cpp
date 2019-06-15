@@ -3,6 +3,7 @@
 #include<vector>
 #include<chrono>
 #include<iostream>
+#include<cstdlib>
 using namespace Eigen;
 using namespace std;
 
@@ -65,18 +66,28 @@ void ParallelProcess(SpMat A, VectorXd x, VectorXd b, int core_num) {
 
 
 int main(int argc, const char **argv) {
-    VectorXd x = VectorXd::Ones(MATRIXSIZE);
-    VectorXd b = VectorXd::Ones(MATRIXSIZE);
-    SpMat A = generateSparseMat(MATRIXSIZE);
+    long int MSIZE;
+    if (argv[1]) {
+        long int size = atoi(argv[1]);
+        MSIZE = size;
+    } else MSIZE = MATRIXSIZE;
 
-    cg.setMaxIterations(MATRIXSIZE*10);
+    cout<<"Matrix size: "<<MSIZE<<endl;
+    VectorXd x = VectorXd::Ones(MSIZE);
+    VectorXd b = VectorXd::Ones(MSIZE);
+    SpMat A = generateSparseMat(MSIZE);
+
+    cg.setMaxIterations(MSIZE*10);
     cg.setTolerance(1e-3);
 
-    SequentialProcess(A, x, b);
-    for (int i = 2; i <= 8; i += 2) {
-        if (i == 6) continue;
+    // ParallelProcess(A, x, b, 28);
+    
+    for (int i = 8; i >= 2; i -= 2) {
+        if (i == 6) continue; 
         ParallelProcess(A, x, b, i);
     }
+    SequentialProcess(A, x, b);
+    
     // cout<<A<<endl;
     // cout<<b<<endl;
     // cout<<x<<endl;
