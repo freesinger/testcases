@@ -4,11 +4,9 @@
 
 - **OS**: *Ubuntu 18.04.2 LTS (GNU/Linux 4.18.0-21-generic x86_64)*
 
-- **physical processer**: *2* 
+- **physical processer**: 2
 
-  **cores / processer**: *14*
-
-  **processes**: *56*
+- **cores / processer**: 14
 
 - **库**：`OpenMp`, `MPI`, `Eigen`
 
@@ -18,15 +16,15 @@
 
 ### 1.1 代码设计及优化
 
-使用高性能矩阵运算库Eigen实现对矩阵的运算加速。对A, x, b的定义如下：
+使用高性能矩阵运算库Eigen实现对矩阵的运算加速。对A, x, b的初始化定义如下：
 
 ```c++
-    VectorXd x = VectorXd::Ones(MSIZE);
-    VectorXd b = VectorXd::Ones(MSIZE);
-    SpMat A = generateSparseMat(MSIZE);
+VectorXd x = VectorXd::Ones(MSIZE);
+VectorXd b = VectorXd::Ones(MSIZE);
+SpMat A = generateSparseMat(MSIZE);
 ```
 
-实现并行计算代码如下：
+共轭梯度求解器定义：
 
 ```c++
 ConjugateGradient<SpMat, Lower|Upper> cg;
@@ -34,6 +32,11 @@ ConjugateGradient<SpMat, Lower|Upper> cg;
 cg.setMaxIterations(MSIZE*10);
 // tolerance
 cg.setTolerance(1e-3);
+```
+
+实现并行计算代码如下：
+
+```c++
 void ParallelProcess(SpMat A, VectorXd x, VectorXd b, int core_num) {
     initParallel();
     // core numbers
@@ -76,7 +79,7 @@ void ParallelProcess(SpMat A, VectorXd x, VectorXd b, int core_num) {
 
 OpenMP实现并行化与算法的分离使得使用特别简易，可读性也很好。如下例子：
 
-```C++
+```c++
 /* Define pseudocolor maps, ramps for red and blue,
    random for green */
     #pragma omp parallel for num_threads(num_trds)
@@ -118,7 +121,7 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
 
 主要思想是设置一个长度为3的数组存储三个矩阵的计算值，由主进程收集子进程的计算信息再进行迭代：
 
-```C++
+```c++
     /* Reductions with MPI */
     double values[3]; // for storing matrices mul temp results
     for (int i = 0; i < M; i++) {
@@ -134,7 +137,8 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
                     MPI_Send(values, 3, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
                 } else {
                     for (int id = 1; id < nproc; id++) {
-                        MPI_Recv(values, 3, MPI_DOUBLE, id, 1, MPI_COMM_WORLD, &status);
+                        MPI_Recv(values, 3, MPI_DOUBLE, id, 1, 
+                        MPI_COMM_WORLD, &status);
                         alpha += values[0];
                         beta += values[1];
                         gamma += values[2];
@@ -169,7 +173,7 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
 
 - 创建一维数组并在n个进程均匀分布（无法整除部分分配给编号末尾的进程），数组内容初始化为随机整数
 
-```C++
+```c++
     /* Allocate buffer to procceses */
     if (id != nproc-1)
         blocksize = bufsize/nproc;
@@ -187,7 +191,7 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
 
 - 利用并行I/O接口把数据写入文件中，输出每个进程写入的`offset`
 
-```C++
+```c++
     /* make sure all writes finish before we seek/read */
     MPI_Barrier(comm);
     MPI_File_open(comm, "mpiio.dat",
@@ -203,7 +207,7 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
 
 - 执行一个集合操作，把所有进程的分块数据发送给0号进程，0号进程另外开一个1维数组空间a用户保存这些收取的数据
 
-```C++
+```c++
     /* 0 process store data sent from slave processes in array A */
     MPI_Barrier(comm);
     if (id == 0) {
@@ -235,9 +239,9 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
     }
 ```
 
-- 0号进程另起一个串行I/O读入并行I/O操作写入文件的数据, 0号进程串行读入的输入放在1维数组空间b中，1.1.9.    对比a和b验证I/O和通信是否正确
+- 0号进程另起一个串行I/O读入并行I/O操作写入文件的数据, 0号进程串行读入的输入放在1维数组空间b中，对比a和b验证I/O和通信是否正确
 
-```C++
+```c++
     if (id == 0) {
         /* 0 process sequential read slave processes' I/O data into array B */
         B = fileWrite("mpiio.dat", B, bufsize);

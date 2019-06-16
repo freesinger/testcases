@@ -12,7 +12,7 @@
 
 ### 1.1 General computing on GPU
 
-在适当情况中最常用的并行是使用图形处理单元上的通用计算（GPGPU），这种方法是利用现代高端图形处理器（GPU）的大量处理内核来同时执行计算成本高的任务。尽管并非所有的深度学习任务（或其它软件任务的集合）都受益于 GPGPU，但毫无疑问目前已有大量的高计算成本和高时间成本的任务可以享受到 GPGPU 的优势。修改算法以使其中一些特定的任务可使用 GPU 并行能够为任务的性能表现和完成速度带来显著的提升。
+在适当情况中最常用的并行是使用图形处理单元上的通用计算（GPGPU），这种方法是利用现代高端图形处理器（GPU）的大量处理内核来同时执行计算成本高的任务。尽管并非所有的深度学习任务（或其它软件任务的集合）都受益于 GPGPU，但毫无疑问目前已有大量的高计算成本和高时间成本的任务可以享受到 GPGPU 的优势。修改算法以使其中一些特定的任务可使用 GPU 并-行能够为任务的性能表现和完成速度带来显著的提升。
 
 深度学习算法还可以通过并行处理具有许多相同算法的常见任务来实现性能提升，比如执行矩阵乘法（许多分类任务会用到）、回归、聚类技术、以及特别有价值的线性回归。对于这种在任务执行延迟上的理论加速，还需要说明的一点是：Amdahl 定律说明在整个任务的执行上的理论加速会随着每个系统的资源的增量提升而增加。但是，不管整体的提升幅度如何，理论上的加速都会受到不能受益于并行改进的任务组分的限制。所以它存在一个极限，就像木桶只能装符合最短木板的那么多水一样。
 
@@ -274,13 +274,13 @@ class DistributedModel(nn.Module):
 
 [4] Deep Learning Framework Examples. https://github.com/ilkarman/DeepLearningFrameworks
 
-[5] CUDA references. [https://en.wikipedia.org/wiki/CUDA](https://en.wikipedia.org/wiki/CUDA)
+[5] CUDA references. [https://en.wikipedia.org/wiki/CUDA](https://en.wikipedia.org/wiki/CUDA)
 
-[6] L. T. Yang and M. Guo. 2005. High-PerformanceComputing: Paradigm andInfrastructure. Wiley. 
+[6] L. T. Yang and M. Guo. 2005. High-PerformanceComputing: Paradigm andInfrastructure. Wiley. 
 
-[7] E.I. Ioannidis, N. Cheimarios. 2019. On the performance of various parallel GMRES implementations on CPU and GPU clusters.
+[7] E.I. Ioannidis, N. Cheimarios. 2019. On the performance of various parallel GMRES implementations on CPU and GPU clusters.
 
-[8] M. Papadrakakis, G. Stavroulakis, and A. Karatarakis. A new era in scientific computing, domain decomposition methods in hybrid cpu/gpu architectures. Comput. Methods Appl. Mech. Engrg., 200, (2011) 1490-1508.
+[8] M. Papadrakakis, G. Stavroulakis, and A. Karatarakis. A new era in scientific computing, domain decomposition methods in hybrid cpu/gpu architectures. Comput. Methods Appl. Mech. Engrg., 200, (2011) 1490-1508.
 
 ## 6. Appendix
 
