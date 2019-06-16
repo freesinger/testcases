@@ -193,7 +193,7 @@ with torch.cuda.stream(s):
 
 ### 3.2 On the GPU
 
-`PyTorch`中数据并行是使用`torch.nn.DataParallel`实现的，官方代码见附录2.3。通常，`PyTorch`的`nn.parallel`可以独立使用。 官方已经实现了类似MPI的原函数：
+`PyTorch`中数据并行是使用`torch.nn.DataParallel`实现的，官方代码见附录2.3。通常，`PyTorch`的`nn.parallel`可以独立使用。 官方已经实现了类似`MPI`的原函数：
 
 - replicate: 在多个设备上复制模块
 - scatter: 在第一个维度上分布输入
@@ -268,11 +268,19 @@ class DistributedModel(nn.Module):
 
 [1] Pytorch parrallelism_tutorial. https://pytorch.org/tutorials/beginner/former_torchies/parallelism_tutorial.html
 
-[2] Speed uo your algorithm. https://towardsdatascience.com/speed-up-your-algorithms-part-1-pytorch-56d8a4ae7051
+[2] Speed up your algorithm. https://towardsdatascience.com/speed-up-your-algorithms-part-1-pytorch-56d8a4ae7051
 
 [3] 机器学习中的并行计算：GPU、CUDA和实际应用. https://www.jiqizhixin.com/articles/2016-11-11-3
 
 [4] Deep Learning Framework Examples. https://github.com/ilkarman/DeepLearningFrameworks
+
+[5] CUDA references. [https://en.wikipedia.org/wiki/CUDA](https://en.wikipedia.org/wiki/CUDA)
+
+[6] L. T. Yang and M. Guo. 2005. High-PerformanceComputing: Paradigm andInfrastructure. Wiley. 
+
+[7] E.I. Ioannidis, N. Cheimarios. 2019. On the performance of various parallel GMRES implementations on CPU and GPU clusters.
+
+[8] M. Papadrakakis, G. Stavroulakis, and A. Karatarakis. A new era in scientific computing, domain decomposition methods in hybrid cpu/gpu architectures. Comput. Methods Appl. Mech. Engrg., 200, (2011) 1490-1508.
 
 ## 6. Appendix
 

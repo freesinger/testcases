@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 
 
     if (id == 0) {
-        /* 0 process sequential read slave processes' I/O data into arrat B */
+        /* 0 process sequential read slave processes' I/O data into array B */
         B = fileWrite("mpiio.dat", B, bufsize);
 
         if (P == "-p") {
