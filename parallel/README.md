@@ -8,7 +8,7 @@
 
 - **cores / processer**: 14
 
-- **库**：`OpenMp`, `MPI`, `Eigen`
+- **库**：`OpenMp`, `MPI`, `Eigen`,`OpenGL`
 
 ## 1. 稀疏矩阵求解
 
@@ -98,6 +98,14 @@ OpenMP实现并行化与算法的分离使得使用特别简易，可读性也�
 - 运行时间对比：
 
 ![](mandelbrot/screenshots/coreTime.png)
+
+- 单核：
+
+![](mandelbrot/screenshots/1core.png)
+
+- 双核加速：
+
+![](mandelbrot/screenshots/2core.png)
 
 - 4核加速：
 
