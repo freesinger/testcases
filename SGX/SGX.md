@@ -106,6 +106,14 @@ enclave和non-enclave共享大量的系统资源，这就给侧信道攻击留�
 
 ## 4. 检测及防御方法
 
+在做SGX开发实验的时候我在官方的SGX文档下面找到了`Protection from Side-Channel Attacks`这一章，点进去一看非常有趣，如下图所示：
+
+![](images/IntelSA.png)
+
+把锅甩给开发者 LOL
+
+
+
 上面四个
 
 ### 4.4 硬件软件
