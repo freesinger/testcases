@@ -80,22 +80,24 @@ def find_region(img):
         rect_list.append(rect)
     # 筛选矩形框
     region = []
-    print("Image shape:")
-    print(w_img, '*', h_img)
+    # print("Image shape:")
+    # print(w_img, '*', h_img)
     # print("Default lists:", rect_list, len(rect_list))
     for rect in rect_list:
         # 计算高和宽
         height = rect[3]
         width = rect[2]
         # 判断高度和宽带是否满足要求
-        if (width < w_img or width > w_img/3 or height < h_img/50 or height > h_img/15):
+        if (width < w_img/10 or width > w_img/3 or height < h_img/50 or height > h_img/15):
             continue
         # 发票代码、号码，长宽比：8-80
         ratio = float(width) / float(height)
         if (ratio > 100 or ratio < 5):
             continue
         # 发票代码和发票号码在右上角
-        if(rect[0] > w_img/2 or rect[1] > h_img/2):
+        if(rect[0] < w_img/2 and rect[1] > h_img/2):
+            continue
+        if(rect[0] >= w_img/2 and rect[1] > h_img/2):
             continue
         region.append(rect)
     return region
