@@ -2,3 +2,4 @@
 *.ipch
 .vscode
 __pycache__
+.idea/
