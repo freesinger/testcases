@@ -171,7 +171,7 @@ for date in date_dict.keys():
             date_avg_trials[date] += record[2]
 
 for date in date_dict.keys():
-    date_avg_trials[date] = round(date_avg_trials[date] / date_dict[date], 2)    
+    date_avg_trials[date] = '%.2f' %(date_avg_trials[date] / date_dict[date])
 # print(date_avg_trials)
 # print(date_luck)
 
