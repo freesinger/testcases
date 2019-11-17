@@ -14,8 +14,8 @@ class Solution {
         for (char ch : text.toCharArray()) {
             cnt[ch - 'a']++;
         }
-        char[] t = balloon.toCharArray();
-        for (char ch : t) {
+        
+        for (char ch : balloon.toCharArray()) {
             if (ch == 'l' | ch == 'o') {
                 res = Math.min(res, cnt[ch - 'a'] / 2);
             } else {
