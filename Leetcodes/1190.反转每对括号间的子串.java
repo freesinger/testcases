@@ -15,8 +15,9 @@ class Solution {
             if (s.charAt(i) == '(') {
                 stack.push("");
             } else if (s.charAt(i) == ')') {
-                String reverseTop = reverseString(stack.pop());
-                stack.push(stack.pop() + reverseTop);  
+                StringBuilder stringBuilder = new StringBuilder(stack.pop());
+                // String reverseTop = reverseString(stack.pop());
+                stack.push(stack.pop() + stringBuilder.reverse());  
             } else {
                 String top = stack.pop();
                 stack.push(top + s.charAt(i));
@@ -25,13 +26,13 @@ class Solution {
         return stack.pop();
     }
 
-    private String reverseString(String s) {
-        String res = "";
-        for (int i = s.length() - 1; i >= 0; i--) {
-            res += s.charAt(i);
-        }
-        return res;
-    }
+    // private String reverseString(String s) {
+    //     String res = "";
+    //     for (int i = s.length() - 1; i >= 0; i--) {
+    //         res += s.charAt(i);
+    //     }
+    //     return res;
+    // }
 }
 // @lc code=end
 
